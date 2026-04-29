@@ -119,6 +119,38 @@ nav:
       - "Day 28 LLM Agent・MCP": 28_LLM_Agent.md
       - "Day 29 フルスタック": 29_フルスタック.md
       - "Day 30 K8s・IaC・本番運用": 30_本番運用_K8s_IaC.md
+  - 💎 究極(Day 31-49):
+      - "Day 31 アルゴリズム・データ構造": 31_アルゴリズム.md
+      - "Day 32 CPython内部・GIL・メモリ": 32_CPython内部.md
+      - "Day 33 OSSコード読解": 33_OSSコード読解.md
+      - "Day 34 アーキテクチャ設計(DDD/Clean)": 34_アーキテクチャ設計.md
+      - "Day 35 マイクロサービス・gRPC": 35_マイクロサービス_gRPC.md
+      - "Day 36 DB内部・最適化": 36_DB内部_最適化.md
+      - "Day 37 OS・Linux・systemd": 37_OS_Linux.md
+      - "Day 38 ネットワーク": 38_ネットワーク.md
+      - "Day 39 セキュリティ深掘り": 39_セキュリティ深掘り.md
+      - "Day 40 テスト戦略": 40_テスト戦略.md
+      - "Day 41 正規表現・パーサー": 41_正規表現_パーサー.md
+      - "Day 42 画像・音声・動画処理": 42_画像_音声.md
+      - "Day 43 PyTorch・LoRA・Fine-tuning": 43_PyTorch_LoRA.md
+      - "Day 44 統計・因果推論・時系列": 44_統計_因果推論.md
+      - "Day 45 ベクトルDB・RAG高度": 45_ベクトルDB.md
+      - "Day 46 Multi-modal AI": 46_Multi-modal.md
+      - "Day 47 Browser Agent": 47_Browser_Agent.md
+      - "Day 48 数学(線形代数/微分/確率)": 48_数学.md
+      - "Day 49 英語・海外案件": 49_英語_海外案件.md
+  - 💰 即金&拡張(Day 50-60):
+      - "Day 50 最速100万ロードマップ": 50_最速100万ロードマップ.md
+      - "Day 51 案件選別ガイド": 51_案件選別ガイド.md
+      - "Day 52 TypeScript": 52_TypeScript.md
+      - "Day 53 React 深掘り": 53_React_深掘り.md
+      - "Day 54 Tailwind・Shadcn": 54_Tailwind_Shadcn.md
+      - "Day 55 Stripe 決済": 55_Stripe_決済.md
+      - "Day 56 メール・通知": 56_メール_通知.md
+      - "Day 57 法人化・経理": 57_法人化_経理.md
+      - "Day 58 個人ブランディング": 58_個人ブランディング.md
+      - "Day 59 メンタル・継続術": 59_メンタル_継続術.md
+      - "Day 60 最終・完全独立宣言": 60_最終_完全独立宣言.md
   - 🛠 テンプレ:
       - "クロード依頼テンプレ": resources/クロード依頼テンプレ集.md
       - "コード雛形集": resources/コード雛形集.md

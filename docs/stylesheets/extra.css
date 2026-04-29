@@ -130,6 +130,8 @@
 .dot-mid { background: #f59e0b; }
 .dot-advanced { background: #ef4444; }
 .dot-final { background: #ec4899; }
+.dot-ultimate { background: #8b5cf6; }
+.dot-money { background: #10b981; }
 
 /* ============================================
    カレンダーUI
@@ -228,6 +230,18 @@
 }
 [data-md-color-scheme="slate"] .tier-final {
   background: linear-gradient(135deg, rgba(236,72,153,0.2) 0%, rgba(219,39,119,0.2) 100%) !important;
+}
+
+.tier-ultimate::before { background: #8b5cf6; }
+.tier-ultimate .cal-day { color: #7c3aed; }
+
+.tier-money::before { background: #10b981; }
+.tier-money .cal-day { color: #059669; }
+.tier-money {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%) !important;
+}
+[data-md-color-scheme="slate"] .tier-money {
+  background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(5,150,105,0.15) 100%) !important;
 }
 
 /* バッジ */
