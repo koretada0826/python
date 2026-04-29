@@ -6,209 +6,213 @@ hide:
 
 <div class="hero" markdown>
 
-# 🐍 Python 月100万 独立コース
+# 🐍 Python 月100万 独立コース(30日)
 
-クロード(Claude AI)駆動でPythonエンジニアとして独立し、**月100万円**を目指す23日間の自習コース
+**フリーランスとして月100万 + 企業に必要とされるレベルの両立**
+
+クロード(Claude AI)駆動でPythonエンジニアとして独立し、稼ぎながら現場で求められるスキルを完全装備する30日カレンダー型コース
 
 <div class="stats" markdown>
-<span class="stat">📚 全23章</span>
-<span class="stat">⏱ 60時間</span>
-<span class="stat">💰 月100万到達</span>
+<span class="stat">📚 全30章</span>
+<span class="stat">⏱ 80時間</span>
+<span class="stat">💰 月100-300万到達</span>
 <span class="stat">🤖 Claude駆動</span>
 </div>
 
 </div>
 
-## はじめに
+## 📅 30日カレンダー
 
-このコースは、Pythonエンジニアとして**フリーランスで月100万円**稼ぐためのスキルとビジネス基盤を、**23日**で習得する自習プログラムです。
+各日のセルをクリックして内容へ。**色 = 学習段階**
 
-クロード(Claude AI)にコードを書かせる前提なので、構文を全て覚える必要はありません。**「何を作るか」「動くか確認」の判断力**だけで進められます。
-
----
-
-<div class="section-title">🎯 基礎ステージ <span class="badge badge-basic">Day 1-13</span></div>
-<p class="section-subtitle">月30〜80万円圏のスキル基盤を作る</p>
-
-<div class="day-grid" markdown>
-
-<a href="01_環境構築/" class="day-card">
-<div class="day-number">DAY 01</div>
-<div class="day-title">🛠 環境構築</div>
-<div class="day-income">月収: 0円</div>
-<div class="day-desc">Python・VSCode・GitHub・Claudeのセットアップ</div>
-</a>
-
-<a href="02_基礎/" class="day-card">
-<div class="day-number">DAY 02</div>
-<div class="day-title">🐣 Python基礎</div>
-<div class="day-income">月収: 0円</div>
-<div class="day-desc">変数・if・for・関数・リスト・辞書</div>
-</a>
-
-<a href="03_実用/" class="day-card">
-<div class="day-number">DAY 03</div>
-<div class="day-title">📁 実用(エラー+ファイル)</div>
-<div class="day-income">月収: 月3千円</div>
-<div class="day-desc">try/except・CSV/JSON・フォルダ操作</div>
-</a>
-
-<a href="04_pandas/" class="day-card">
-<div class="day-number">DAY 04 ⭐</div>
-<div class="day-title">📊 pandas</div>
-<div class="day-income">月収: 3〜10万円</div>
-<div class="day-desc">Excel/CSV処理、集計、ピボット、グラフ</div>
-</a>
-
-<a href="05_スクレイピング/" class="day-card">
-<div class="day-number">DAY 05 ⭐</div>
-<div class="day-title">🕸 スクレイピング</div>
-<div class="day-income">月収: 5〜15万円</div>
-<div class="day-desc">requests/BS4・API・Playwright</div>
-</a>
-
-<a href="06_AI基礎/" class="day-card">
-<div class="day-number">DAY 06 ⭐</div>
-<div class="day-title">🤖 AI基礎</div>
-<div class="day-income">月収: 10〜30万円</div>
-<div class="day-desc">Claude/OpenAI API、要約・分析・チャット</div>
-</a>
-
-<a href="07_AI高度/" class="day-card">
-<div class="day-number">DAY 07 ⭐</div>
-<div class="day-title">🧠 AI高度(RAG)</div>
-<div class="day-income">月収: 30〜80万円</div>
-<div class="day-desc">LangChain・社内文書検索Bot・Slack連携</div>
-</a>
-
-<a href="08_SaaS化/" class="day-card">
-<div class="day-number">DAY 08 ⭐</div>
-<div class="day-title">💎 SaaS化</div>
-<div class="day-income">月収: 20〜100万円</div>
-<div class="day-desc">Streamlit・Stripe月額課金・Render公開</div>
-</a>
-
-<a href="09_ポートフォリオ/" class="day-card">
-<div class="day-number">DAY 09 ⭐</div>
-<div class="day-title">🎨 ポートフォリオ</div>
-<div class="day-income">採用率2-3倍</div>
-<div class="day-desc">5作品を売れる体裁に・スクショ・GIF</div>
-</a>
-
-<a href="10_GitHub_SNS/" class="day-card">
-<div class="day-number">DAY 10</div>
-<div class="day-title">🌐 GitHub・SNS</div>
-<div class="day-income">信頼形成</div>
-<div class="day-desc">作品集公開・X発信・営業文準備</div>
-</a>
-
-<a href="11_ランサーズ/" class="day-card">
-<div class="day-number">DAY 11</div>
-<div class="day-title">💼 ランサーズ・SES</div>
-<div class="day-income">月収: 5〜30万円</div>
-<div class="day-desc">3サイト登録・初応募・SESエージェント</div>
-</a>
-
-<a href="12_単価UP月額化/" class="day-card">
-<div class="day-number">DAY 12</div>
-<div class="day-title">📈 単価UP・月額化</div>
-<div class="day-income">月収: 30〜80万円</div>
-<div class="day-desc">月額契約・領域特化・営業多角化</div>
-</a>
-
-<a href="13_統合_中間チェック/" class="day-card">
-<div class="day-number">DAY 13</div>
-<div class="day-title">🔍 統合・中間チェック</div>
-<div class="day-income">休憩</div>
-<div class="day-desc">Day 1-12の振り返り・次への準備</div>
-</a>
-
+<div class="legend">
+  <span class="legend-item"><span class="dot dot-prep"></span>準備(Day 1-3)</span>
+  <span class="legend-item"><span class="dot dot-basic"></span>基礎(Day 4-13)</span>
+  <span class="legend-item"><span class="dot dot-mid"></span>中級(Day 14-22)</span>
+  <span class="legend-item"><span class="dot dot-advanced"></span>上級(Day 24-30)</span>
+  <span class="legend-item"><span class="dot dot-final"></span>最終(Day 23)</span>
 </div>
 
----
+<div class="calendar">
 
-<div class="section-title">🚀 中級〜上級ステージ <span class="badge badge-mid">Day 14-22</span></div>
-<p class="section-subtitle">月100万円圏のプロスキルを装備</p>
-
-<div class="day-grid" markdown>
-
-<a href="14_SQL_DB/" class="day-card">
-<div class="day-number">DAY 14</div>
-<div class="day-title">🗄 SQL・DB</div>
-<div class="day-income">+10〜30万</div>
-<div class="day-desc">SQLite・PostgreSQL・SQLAlchemy</div>
+<a href="01_環境構築/" class="cal-cell tier-prep">
+<span class="cal-day">01</span>
+<span class="cal-title">環境構築</span>
+<span class="cal-income">準備</span>
 </a>
 
-<a href="15_Git高度/" class="day-card">
-<div class="day-number">DAY 15</div>
-<div class="day-title">🌳 Git高度</div>
-<div class="day-income">+5〜20万</div>
-<div class="day-desc">branch/PR/conflict/CI</div>
+<a href="02_基礎/" class="cal-cell tier-prep">
+<span class="cal-day">02</span>
+<span class="cal-title">Python基礎</span>
+<span class="cal-income">準備</span>
 </a>
 
-<a href="16_Docker/" class="day-card">
-<div class="day-number">DAY 16</div>
-<div class="day-title">🐳 Docker</div>
-<div class="day-income">+10〜30万</div>
-<div class="day-desc">Dockerfile・compose・Render</div>
+<a href="03_実用/" class="cal-cell tier-prep">
+<span class="cal-day">03</span>
+<span class="cal-title">エラー+ファイル</span>
+<span class="cal-income">3千円</span>
 </a>
 
-<a href="17_AWS_クラウド/" class="day-card">
-<div class="day-number">DAY 17</div>
-<div class="day-title">☁ AWS・クラウド</div>
-<div class="day-income">+20〜50万</div>
-<div class="day-desc">EC2・S3・Lambda・RDS</div>
+<a href="04_pandas/" class="cal-cell tier-basic">
+<span class="cal-day">04</span>
+<span class="cal-title">pandas ⭐</span>
+<span class="cal-income">3-10万</span>
 </a>
 
-<a href="18_テスト_品質/" class="day-card">
-<div class="day-number">DAY 18</div>
-<div class="day-title">🧪 テスト・品質</div>
-<div class="day-income">+5〜20万</div>
-<div class="day-desc">pytest・型・Linter・ロギング</div>
+<a href="05_スクレイピング/" class="cal-cell tier-basic">
+<span class="cal-day">05</span>
+<span class="cal-title">スクレイピング</span>
+<span class="cal-income">5-15万</span>
 </a>
 
-<a href="19_API設計/" class="day-card">
-<div class="day-number">DAY 19 ⭐</div>
-<div class="day-title">🔌 API設計</div>
-<div class="day-income">+30〜80万</div>
-<div class="day-desc">FastAPI・JWT・Pydantic・SQLAlchemy</div>
+<a href="06_AI基礎/" class="cal-cell tier-basic">
+<span class="cal-day">06</span>
+<span class="cal-title">AI基礎</span>
+<span class="cal-income">10-30万</span>
 </a>
 
-<a href="20_セキュリティ/" class="day-card">
-<div class="day-number">DAY 20</div>
-<div class="day-title">🔒 セキュリティ</div>
-<div class="day-income">+10〜30万</div>
-<div class="day-desc">OWASP・認証認可・暗号化</div>
+<a href="07_AI高度/" class="cal-cell tier-basic">
+<span class="cal-day">07</span>
+<span class="cal-title">AI高度(RAG) ⭐</span>
+<span class="cal-income">30-80万</span>
 </a>
 
-<a href="21_チーム開発/" class="day-card">
-<div class="day-number">DAY 21</div>
-<div class="day-title">👥 チーム開発</div>
-<div class="day-income">+10〜30万</div>
-<div class="day-desc">アジャイル・コードレビュー・ドキュメント</div>
+<a href="08_SaaS化/" class="cal-cell tier-basic">
+<span class="cal-day">08</span>
+<span class="cal-title">SaaS化 ⭐</span>
+<span class="cal-income">20-100万</span>
 </a>
 
-<a href="22_契約_税務_マーケ/" class="day-card">
-<div class="day-number">DAY 22</div>
-<div class="day-title">💰 契約・税務・マーケ</div>
-<div class="day-income">+5〜30万</div>
-<div class="day-desc">業務委託・インボイス・SNS戦略</div>
+<a href="09_ポートフォリオ/" class="cal-cell tier-basic">
+<span class="cal-day">09</span>
+<span class="cal-title">ポートフォリオ</span>
+<span class="cal-income">採用2倍</span>
 </a>
 
-</div>
+<a href="10_GitHub_SNS/" class="cal-cell tier-basic">
+<span class="cal-day">10</span>
+<span class="cal-title">GitHub・SNS</span>
+<span class="cal-income">信頼UP</span>
+</a>
 
----
+<a href="11_ランサーズ/" class="cal-cell tier-basic">
+<span class="cal-day">11</span>
+<span class="cal-title">ランサーズ・SES</span>
+<span class="cal-income">5-30万</span>
+</a>
 
-<div class="section-title">🎉 最終ステージ <span class="badge badge-final">Day 23</span></div>
-<p class="section-subtitle">月100万円フリーランス完成</p>
+<a href="12_単価UP月額化/" class="cal-cell tier-basic">
+<span class="cal-day">12</span>
+<span class="cal-title">単価UP・月額化</span>
+<span class="cal-income">30-80万</span>
+</a>
 
-<div class="day-grid" markdown>
+<a href="13_統合_中間チェック/" class="cal-cell tier-basic">
+<span class="cal-day">13</span>
+<span class="cal-title">中間チェック</span>
+<span class="cal-income">休憩</span>
+</a>
 
-<a href="23_最終_独立宣言/" class="day-card">
-<div class="day-number">DAY 23 ⭐</div>
-<div class="day-title">🎊 最終・独立宣言</div>
-<div class="day-income">月収: 80〜200万円</div>
-<div class="day-desc">月100万円ロードマップの完成</div>
+<a href="14_SQL_DB/" class="cal-cell tier-mid">
+<span class="cal-day">14</span>
+<span class="cal-title">SQL・DB</span>
+<span class="cal-income">+10-30万</span>
+</a>
+
+<a href="15_Git高度/" class="cal-cell tier-mid">
+<span class="cal-day">15</span>
+<span class="cal-title">Git高度</span>
+<span class="cal-income">+5-20万</span>
+</a>
+
+<a href="16_Docker/" class="cal-cell tier-mid">
+<span class="cal-day">16</span>
+<span class="cal-title">Docker</span>
+<span class="cal-income">+10-30万</span>
+</a>
+
+<a href="17_AWS_クラウド/" class="cal-cell tier-mid">
+<span class="cal-day">17</span>
+<span class="cal-title">AWS・クラウド</span>
+<span class="cal-income">+20-50万</span>
+</a>
+
+<a href="18_テスト_品質/" class="cal-cell tier-mid">
+<span class="cal-day">18</span>
+<span class="cal-title">テスト・品質</span>
+<span class="cal-income">+5-20万</span>
+</a>
+
+<a href="19_API設計/" class="cal-cell tier-mid">
+<span class="cal-day">19</span>
+<span class="cal-title">API設計 ⭐</span>
+<span class="cal-income">+30-80万</span>
+</a>
+
+<a href="20_セキュリティ/" class="cal-cell tier-mid">
+<span class="cal-day">20</span>
+<span class="cal-title">セキュリティ</span>
+<span class="cal-income">+10-30万</span>
+</a>
+
+<a href="21_チーム開発/" class="cal-cell tier-mid">
+<span class="cal-day">21</span>
+<span class="cal-title">チーム開発</span>
+<span class="cal-income">+10-30万</span>
+</a>
+
+<a href="22_契約_税務_マーケ/" class="cal-cell tier-mid">
+<span class="cal-day">22</span>
+<span class="cal-title">契約・税務・マーケ</span>
+<span class="cal-income">+5-30万</span>
+</a>
+
+<a href="23_最終_独立宣言/" class="cal-cell tier-final">
+<span class="cal-day">23</span>
+<span class="cal-title">独立宣言 🎉</span>
+<span class="cal-income">月100万</span>
+</a>
+
+<a href="24_OOP_デザインパターン/" class="cal-cell tier-advanced">
+<span class="cal-day">24</span>
+<span class="cal-title">OOP・設計</span>
+<span class="cal-income">+10-30万</span>
+</a>
+
+<a href="25_非同期_並行処理/" class="cal-cell tier-advanced">
+<span class="cal-day">25</span>
+<span class="cal-title">非同期・並行</span>
+<span class="cal-income">+10-30万</span>
+</a>
+
+<a href="26_データエンジニアリング/" class="cal-cell tier-advanced">
+<span class="cal-day">26</span>
+<span class="cal-title">データエンジ ⭐</span>
+<span class="cal-income">+30-80万</span>
+</a>
+
+<a href="27_ML_MLOps/" class="cal-cell tier-advanced">
+<span class="cal-day">27</span>
+<span class="cal-title">ML・MLOps ⭐</span>
+<span class="cal-income">+30-100万</span>
+</a>
+
+<a href="28_LLM_Agent/" class="cal-cell tier-advanced">
+<span class="cal-day">28</span>
+<span class="cal-title">LLM Agent ⭐⭐</span>
+<span class="cal-income">+50-200万</span>
+</a>
+
+<a href="29_フルスタック/" class="cal-cell tier-advanced">
+<span class="cal-day">29</span>
+<span class="cal-title">フルスタック</span>
+<span class="cal-income">+30-100万</span>
+</a>
+
+<a href="30_本番運用_K8s_IaC/" class="cal-cell tier-advanced">
+<span class="cal-day">30</span>
+<span class="cal-title">K8s・IaC ⭐</span>
+<span class="cal-income">+50-200万</span>
 </a>
 
 </div>
@@ -217,25 +221,36 @@ hide:
 
 ## 📊 月収予測(完走後)
 
-| 期間 | 月収 |
-|---|---:|
-| 完走直後 | 0〜1万円 |
-| 1ヶ月後 | 5〜30万円 |
-| 3ヶ月後 | 30〜50万円 |
-| 6ヶ月後 | 50〜80万円 |
-| **12ヶ月後** | **80〜150万円** ⭐ |
-| 18ヶ月後 | 100〜200万円 |
-| 24ヶ月後 | 150〜300万円(法人化) |
+| 期間 | 月収(副業フル) | 月収(専業) |
+|---|---:|---:|
+| 完走直後 | 0〜1万円 | 0〜5万円 |
+| 1ヶ月 | 5〜30万 | 10〜50万 |
+| 3ヶ月 | 30〜50万 | 50〜100万 |
+| 6ヶ月 | 50〜80万 | 80〜150万 |
+| **12ヶ月** | **80〜150万** | **150〜300万** |
+| 18ヶ月 | 100〜200万 | 200〜500万 |
+| 24ヶ月 | 150〜300万(法人化) | 300〜800万 |
 
-副業(週10h)なら期間1.5〜2倍。専業(週30-40h)なら短縮可能。
+---
+
+## 🎯 このコースの3軸
+
+### 1. **フリーランスで月100万円**
+案件サイト・SES・月額契約・SaaSの**4階建て収入**で月100万を安定化
+
+### 2. **企業から必要とされる人材になる**
+OOP・設計・MLOps・K8s・IaC まで網羅。**SES面談突破レベル**
+
+### 3. **AI/Agent最先端を抑える**
+LLM Agent・MCP・LangGraph で2026年最高単価領域を装備
 
 ---
 
 ## 🛠 補助資料
 
-- 📋 [全体マップ](00_スタート.md) - コース全体像
-- 📊 [進捗ノート](progress.md) - 毎日記入する自分用ログ
-- 🤖 [クロード依頼テンプレ集](resources/クロード依頼テンプレ集.md)
+- 📋 [全体マップ](00_スタート.md)
+- 📊 [進捗ノート](progress.md)
+- 🤖 [クロード依頼テンプレ](resources/クロード依頼テンプレ集.md)
 - 💻 [コード雛形集](resources/コード雛形集.md)
 - 📝 [ランサーズ提案文集](resources/ランサーズ提案文集.md)
 
@@ -243,14 +258,14 @@ hide:
 
 ## ⚖ 鉄則
 
-1. **クロードにコード書かせる**(自分で全部書かない)
-2. **完璧目指さない**、動けば次へ
-3. **1日1章**ペースで進める
-4. `progress.md` に**毎日記入**
-5. **365日継続**で人生変わる
+1. **クロードにコード書かせる** — 構文を覚えなくていい
+2. **完璧目指さない** — 動けば次へ
+3. **1日1章** — カレンダー通りに進める
+4. **progress.md に毎日記入** — 振り返れる仕組み
+5. **365日継続** — 才能ではなく継続が全て
 
 ---
 
 <div style="text-align: center; margin: 3em 0; opacity: 0.6; font-size: 0.85rem;">
-個人学習用 / Made with ❤ and Claude AI
+個人学習用 / Made with ❤ and Claude AI / 30 Days to Freedom
 </div>
