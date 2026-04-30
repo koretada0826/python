@@ -2,13 +2,23 @@
 
 ## 💡 これは何?(小学生でもわかる説明)
 
-****AIが自分で考えて、ツール使って、目的達成する**(Agent)**
+**AIが自分で考えて、ツール使って、目的達成する(Agent)**
 
 ### なぜ大事?
-2026年で最高単価。月150-300万円も現実
+普通のAI(ChatGPT等)=「**質問に答えるだけ**」。
+Agent=「**自分で行動する**」。
+例:「明日の予定教えて」→ 普通のAIは答えない。Agentはカレンダーを開いて答える。
+2026年で最高単価。月150-300万円も現実。
 
 ### イメージ
-**有能な秘書**が「今から〇〇しといて」だけで全部こなす
+- **普通のチャットAI**=「**百科事典を持った友達**」(質問に答えるだけ)
+- **LLM Agent**=「**有能な秘書**」(指示するだけで、必要な情報を探し、ツールを使い、行動する)
+- **Function Calling / Tool Use**=「**AIに使える道具を渡す**」
+- **MCP**=「**AI とアプリを繋ぐ標準コンセント**」(USB Type-Cみたいな統一規格)
+- **LangGraph**=「**Agent の流れ図**」(右に行ったらDB、左に行ったらWeb)
+- **AutoGen**=「**複数AIで会議させる**」(設計者・コーダー・レビュアーが議論)
+- **プロンプトエンジニアリング**=「**AIへの指示書を上手に書く技術**」
+- **RAG**=「**自社データを参照して答える**」(社内マニュアルを読ませる)
 
 ### Claude Code に何を頼めばいいか
 この章で覚えるのは「**何ができるか**」と「**何を頼めばいいか**」だけでOK。
@@ -21,6 +31,11 @@
 
 2026年で**もっとも単価が高い**領域。
 「**Agentic AI**」「**自律エージェント**」が企業のキーワードになってる今、ここを抑えると**月150万円超**も現実。
+
+> **なぜ最高単価?**
+> - 需要爆発(=企業が「うちもAgent入れたい」と殺到)
+> - 供給激少(=作れるエンジニアが世界で数千人レベル)
+> - 効果絶大(=人件費月50万→Agent月3万、誰でも導入したい)
 
 ---
 
@@ -39,13 +54,15 @@
 
 「**LLMが自分で判断して、ツールを呼び出して、目的を達成する**」。
 
-### 普通のチャットボット
+### 1-1. 普通のチャットボット
+
 ```
 ユーザー: 今日の天気は?
 LLM: わかりません(知識にない)
 ```
 
-### Agent
+### 1-2. Agent
+
 ```
 ユーザー: 今日の天気は?
 Agent: 「天気APIを呼ぼう」
@@ -56,17 +73,22 @@ LLM: 晴れて25度です。
 
 → **LLMが「外の世界」と対話**できる。
 
+> **イメージ:**
+> 普通のAI = 「お留守番AI」(家から出ない)
+> Agent = 「冒険者AI」(必要なら街へ買い物に行く)
+
 ---
 
 ## 2. Function Calling(基本)(40分)
 
-### Anthropic Claude
+### 2-1. Anthropic Claude
 
 ```python
 from anthropic import Anthropic
 
 client = Anthropic()
 
+# AI に渡すツールの説明
 tools = [{
     "name": "get_weather",
     "description": "指定された都市の天気を取得",
@@ -94,8 +116,9 @@ response = client.messages.create(
 # tool_use ブロックを取得
 for block in response.content:
     if block.type == "tool_use":
+        # AIが選んだツールを実行
         result = get_weather(**block.input)
-        
+
         # 第2回呼び出し:結果を返してLLMに最終回答させる
         final = client.messages.create(
             model="claude-opus-4-7",
@@ -116,6 +139,12 @@ for block in response.content:
 
 → これが**最重要パターン**。これ書けると一気にプロ。
 
+> **流れ:**
+> 1. ユーザー質問 → AI
+> 2. AI:「ツール使う必要あるな」 → ツール名+引数を返す
+> 3. プログラム:ツール実行 → 結果取得
+> 4. AI:結果を見て最終回答を生成
+
 ---
 
 ## 3. 複数ツール・自律ループ(40分)
@@ -123,13 +152,13 @@ for block in response.content:
 ```python
 def agent_loop(user_message: str, max_iterations: int = 10):
     messages = [{"role": "user", "content": user_message}]
-    
+
     tools = [
         {"name": "search_web", "description": "Web検索", "input_schema": {...}},
         {"name": "calculate", "description": "計算実行", "input_schema": {...}},
         {"name": "send_email", "description": "メール送信", "input_schema": {...}},
     ]
-    
+
     for _ in range(max_iterations):
         response = client.messages.create(
             model="claude-opus-4-7",
@@ -137,15 +166,15 @@ def agent_loop(user_message: str, max_iterations: int = 10):
             tools=tools,
             messages=messages,
         )
-        
-        # stop_reason が end_turn なら終了
+
+        # stop_reason が end_turn なら終了(=AI が完了と判断)
         if response.stop_reason == "end_turn":
             return response.content[0].text
-        
+
         # ツール使用なら実行して結果を返す
         if response.stop_reason == "tool_use":
             messages.append({"role": "assistant", "content": response.content})
-            
+
             tool_results = []
             for block in response.content:
                 if block.type == "tool_use":
@@ -155,13 +184,16 @@ def agent_loop(user_message: str, max_iterations: int = 10):
                         "tool_use_id": block.id,
                         "content": str(result)
                     })
-            
+
             messages.append({"role": "user", "content": tool_results})
-    
+
     return "Max iterations reached"
 ```
 
 → Agent が自分で「次に何のツールを使うか」を判断するループ。
+
+> **max_iterations の意味:**
+> 暴走防止の上限。AIが無限ループに陥らないように10回で打ち切り。
 
 ---
 
@@ -170,7 +202,7 @@ def agent_loop(user_message: str, max_iterations: int = 10):
 Anthropic が**2024年末に出した標準プロトコル**。
 **Claude Desktop / Cursor / Claude Code が対応**。
 
-### MCP とは
+### 4-1. MCP とは
 
 「**LLMと外部ツール・データソースを統一規格で繋ぐ**」プロトコル。
 
@@ -178,7 +210,11 @@ Anthropic が**2024年末に出した標準プロトコル**。
 [Claude] ←→ [MCPサーバー] ←→ [DB / API / ファイルシステム]
 ```
 
-### 自作 MCP サーバー(Python)
+> **なぜ MCP?**
+> 各社が独自プロトコル作ると、ツールごとに毎回実装が必要。
+> MCP に統一すれば、**1回作れば複数AIアプリで使える**(=USB Type-C と同じ哲学)。
+
+### 4-2. 自作 MCP サーバー(Python)
 
 ```bash
 pip install mcp
@@ -210,7 +246,7 @@ if __name__ == "__main__":
     mcp.run()
 ```
 
-### Claude Desktop / Code に登録
+### 4-3. Claude Desktop / Code に登録
 
 `~/.config/claude-code/config.json`:
 ```json
@@ -233,6 +269,9 @@ if __name__ == "__main__":
 
 「**Agent を状態遷移グラフで設計**」する。LangChain チームの新作。
 
+> **イメージ:** すごろく。
+> マスごとに「何をするか」「次にどこへ行くか」を定義する。
+
 ```bash
 pip install langgraph langchain-anthropic
 ```
@@ -245,17 +284,19 @@ from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage
 
 class State(TypedDict):
+    # 状態(=各ノード間で受け渡されるデータ)
     messages: Annotated[list, add_messages]
 
 llm = ChatAnthropic(model="claude-opus-4-7")
 
 def chatbot(state: State):
+    # ノードでやる処理
     return {"messages": [llm.invoke(state["messages"])]}
 
 graph_builder = StateGraph(State)
 graph_builder.add_node("chatbot", chatbot)
-graph_builder.set_entry_point("chatbot")
-graph_builder.set_finish_point("chatbot")
+graph_builder.set_entry_point("chatbot")  # スタート
+graph_builder.set_finish_point("chatbot") # 終了
 graph = graph_builder.compile()
 
 result = graph.invoke({"messages": [HumanMessage("こんにちは")]})
@@ -264,10 +305,11 @@ print(result["messages"][-1].content)
 
 → ノードと辺で**複雑な対話フロー**を可視化。
 
-### 条件分岐ノード
+### 5-1. 条件分岐ノード
 
 ```python
 def route(state):
+    # 条件で次のノードを決める
     if "search" in state["messages"][-1].content.lower():
         return "search_agent"
     return "chat_agent"
@@ -280,6 +322,12 @@ graph_builder.add_conditional_edges("entry", route)
 ## 6. AutoGen - マルチエージェント(30分)
 
 Microsoft の**複数LLM同士が会話して問題解決**するフレームワーク。
+
+> **イメージ:** 会議室にAIを3人入れる。
+> - 計画担当
+> - コーダー担当
+> - レビュアー担当
+> 3人で議論しながらタスク完遂。
 
 ```bash
 pip install autogen-agentchat autogen-ext[openai]
@@ -301,6 +349,7 @@ coder = AssistantAgent("coder", model_client=model_client,
 reviewer = AssistantAgent("reviewer", model_client=model_client,
     system_message="コードをレビューする")
 
+# 順番に発言するチーム
 team = RoundRobinGroupChat([planner, coder, reviewer])
 result = await team.run(task="TODO アプリを設計して実装して")
 ```
@@ -311,7 +360,7 @@ result = await team.run(task="TODO アプリを設計して実装して")
 
 ## 7. プロンプトエンジニアリング(30分)
 
-### Few-shot
+### 7-1. Few-shot(=お手本を見せる)
 
 ```python
 prompt = """
@@ -330,7 +379,10 @@ prompt = """
 """
 ```
 
-### Chain of Thought(CoT)
+> **なぜ効く?**
+> AIは「お手本」があると精度が劇的にUP。指示だけより例の方が伝わる。
+
+### 7-2. Chain of Thought(CoT、思考の連鎖)
 
 ```python
 prompt = """
@@ -348,7 +400,10 @@ prompt = """
 """
 ```
 
-### Self-Critique
+> **なぜ?**
+> AIは「いきなり答えろ」より「順を追って考えろ」の方が正確になる(=人間と同じ)。
+
+### 7-3. Self-Critique(自己批判)
 
 ```python
 # 第1回:回答
@@ -361,7 +416,7 @@ critique = llm.invoke(f"以下の回答を批判してください: {answer}")
 final = llm.invoke(f"批判を反映して再度答えて: {answer}\n批判: {critique}")
 ```
 
-### XML タグ構造化(Claude推奨)
+### 7-4. XML タグ構造化(Claude推奨)
 
 ```python
 prompt = """
@@ -385,11 +440,14 @@ prompt = """
 """
 ```
 
+> **なぜ XML?**
+> Claude は XML タグで「ここからここまでがコンテキスト」と区別しやすい。
+
 ---
 
 ## 8. RAG の高度化(20分)
 
-### Hybrid Search
+### 8-1. Hybrid Search
 
 ```python
 # Vector検索 + キーワード検索 を組合せ
@@ -400,7 +458,10 @@ bm25_results = bm25.search(query, top_k=5)
 combined = rrf_combine([vector_results, bm25_results])
 ```
 
-### Re-ranking
+> **なぜ Hybrid?**
+> Vector(=意味検索)とキーワード(=完全一致)の両方の弱点をカバー。
+
+### 8-2. Re-ranking
 
 ```python
 from sentence_transformers import CrossEncoder
@@ -411,7 +472,10 @@ scores = reranker.predict(pairs)
 top = sorted(zip(candidates, scores), key=lambda x: -x[1])[:3]
 ```
 
-### HyDE(Hypothetical Document)
+> **なぜ?**
+> 一次検索で20件、Re-rankingで上位3件に絞る=精度UP。
+
+### 8-3. HyDE(Hypothetical Document)
 
 「**仮想的な答えを作ってからベクトル検索**」で精度UP。
 
@@ -426,7 +490,7 @@ test_set = [
     ...
 ]
 
-# LLM-as-Judge
+# LLM-as-Judge(=AIにAIの答えを採点させる)
 def evaluate(query, response, expected):
     prompt = f"""
 以下の応答を 0-10 で評価してください。
@@ -437,6 +501,9 @@ def evaluate(query, response, expected):
     score = llm.invoke(prompt)
     return float(score)
 ```
+
+> **なぜ AI が AI を評価?**
+> 1万件の応答を人間が評価するのは無理。AI なら一瞬。
 
 ---
 
@@ -467,6 +534,74 @@ README に Claude Desktop での使い方を明記。
 ```
 
 → **これは月150-300万円の案件**。LLM Agentエンジニアとして名乗れる。
+
+---
+
+## 11. よくある間違い・エラー(15分)
+
+| 状況 | 間違いの原因 | 直し方 |
+|---|---|---|
+| Agent が無限ループ | 終了条件なし | max_iterations を設定 |
+| ツール実行で例外 | エラーハンドリング忘れ | try/except でAIに失敗を伝える |
+| プロンプトが曖昧 | 指示不足 | XML タグ + Few-shot で構造化 |
+| RAG の精度が低い | チャンク分割が悪い | チャンクサイズ調整、Hybrid + Re-ranking |
+| Tool description が雑 | AIがツール選び間違える | description を詳細・例付きで |
+| MCPサーバーが認識されない | パス・JSON書式ミス | configファイル確認、再起動 |
+| トークン超過 | 履歴が膨らむ | 古い履歴を要約・切り捨て |
+| 出力フォーマットが揺れる | 構造化指示なし | JSON Mode やスキーマ指定 |
+| API課金で予算超過 | 上限なし | 月次予算アラート設定 |
+
+---
+
+## 12. 用語まとめ
+
+| 用語 | 一言で |
+|---|---|
+| LLM | 大規模言語モデル |
+| Agent | 自律的に動くAI |
+| Function Calling | AIにツールを渡す機能 |
+| Tool Use | Anthropicでの呼び方 |
+| 自律ループ | AIが自分で考えて繰り返す |
+| MCP | LLM-ツール統一規格 |
+| MCPサーバー | ツールを提供する側 |
+| LangGraph | グラフ型ワークフロー |
+| AutoGen | マルチエージェント連携 |
+| プロンプトエンジニアリング | AI への指示の上手い書き方 |
+| Few-shot | お手本を例示する手法 |
+| Chain of Thought | 段階的思考を促す |
+| Self-Critique | AI に自己批判させる |
+| RAG | 外部知識を参照する仕組み |
+| Hybrid Search | 複数検索手法の組合せ |
+| Re-ranking | 検索結果を再評価 |
+| HyDE | 仮想答案でベクトル検索 |
+| LLM-as-Judge | AIに採点させる評価 |
+| Tavily | LLM 用検索 API |
+| max_iterations | 暴走防止の上限 |
+
+---
+
+## 💼 この章まで終わったら受けられる案件 ★今最熱
+
+### 受けられる案件(具体例)
+- **LLM Agent / マルチエージェントシステム開発**:単価 100〜500万円(プラットフォーム例:Findy Freelance/直契約/SES)
+- **MCP サーバー実装(Claude Desktop / Cursor 連携)**:単価 50〜200万円
+- **業務自動化エージェント(Tool Use + 自律ループ)**:単価 100〜300万円(2026年現在最も需要が高い領域)
+
+### クロードへの頼み方(営業文を書かせる例)
+```
+最先端 LLM Agent 案件向け、X / Note / 直営業用の3点セットを書いて。
+Day 28 までで習得:Function calling / 自律ループ / MCP サーバー / LangGraph / AutoGen / プロンプトエンジニアリング
+売り:2026年4月時点で「Agent を実務で組める」エンジニアは絶対数が少ない、その希少性
+過去実績:GitHubに小規模 Agent デモ(MCP対応)
+価格:単発 100万〜 / コンサル 時給 1.5〜3万円
+ターゲット:DX に乗り遅れたくない中堅企業 / SaaS スタートアップ
+トーン:過剰な煽りはせず、「これからの3年で確実に来る波」と冷静に述べる
+```
+
+### この章だけでは足りないもの(次に学ぶべき)
+- フルスタック(Day 29)で UI からエージェントまで提供
+- 本番運用 / K8s / IaC(Day 30)で大規模Agent運用
+- Browser Agent(Day 47) / Multi-modal(Day 46)
 
 ---
 

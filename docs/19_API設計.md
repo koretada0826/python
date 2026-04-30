@@ -2,17 +2,25 @@
 
 ## 💡 これは何?(小学生でもわかる説明)
 
-****他のアプリと話す窓口**を作る(FastAPI)**
+**他のアプリ(Webサイトやスマホアプリ)が話しかけてくる「窓口」を作る日**
 
 ### なぜ大事?
-Web/モバイルアプリのバックエンドはこれ。月単価80万圏
+Web/モバイルアプリの**バックエンド=API**。
+ここを作れると「**バックエンドエンジニア**」を名乗れる。
+法人案件で**月単価80万圏**が見えてくる。
 
 ### イメージ
-**コンビニのレジ**みたいな窓口を作る。みんなここに頼みに来る
+- **API**=「**コンビニのレジ**」(注文窓口、決まった手順で受ける)
+- **GET**=「**商品を見る**」(レジ覗くだけ、変化なし)
+- **POST**=「**新規購入**」(レジに渡す)
+- **PUT/PATCH**=「**返品交換**」(更新)
+- **DELETE**=「**取り消し**」(削除)
+- **JWT**=「**入店パス**」(ログイン後の身分証明書)
+- **Pydantic**=「**注文用紙の検品係**」(変な注文は受けない)
 
 ### Claude Code に何を頼めばいいか
-この章で覚えるのは「**何ができるか**」と「**何を頼めばいいか**」だけでOK。
-具体的なコードは Claude Code に書かせる。
+FastAPIコード・Pydanticスキーマ・JWT認証・テストは全部クロード。
+あなたは「**何のAPIが必要か**」を伝えるだけ。
 
 ---
 
@@ -34,11 +42,15 @@ Web/モバイルアプリのバックエンドはこれ。月単価80万圏
 
 ---
 
-## 1. REST API とは(15分)
+## 1. REST API とは(=Webサービスの標準的な作法)(15分)
 
-「**Webサービスの標準的な作り方**」。
+### 1-1. なぜREST?
 
-### 例
+> **APIの呼び出し方を世界中で統一した規格**。
+> 「ユーザー一覧」を見る時、どのサイトでも `GET /users` って書く。
+> ルールが統一されてるから、**他人のAPIも一目で使い方分かる**。
+
+### 1-2. 例
 
 ```
 GET    /users         → 全ユーザー取得
@@ -48,17 +60,17 @@ PUT    /users/123     → ID 123 更新
 DELETE /users/123     → ID 123 削除
 ```
 
-### HTTP メソッド
+### 1-3. HTTP メソッド
 
-| メソッド | 用途 |
-|---|---|
-| GET | 取得(副作用なし) |
-| POST | 作成 |
-| PUT | 全置換 |
-| PATCH | 部分更新 |
-| DELETE | 削除 |
+| メソッド | 用途 | 比喩 |
+|---|---|---|
+| GET | 取得(副作用なし) | 商品を見る |
+| POST | 作成 | レジで購入 |
+| PUT | 全置換 | まるごと交換 |
+| PATCH | 部分更新 | 一部だけ修正 |
+| DELETE | 削除 | キャンセル |
 
-### ステータスコード
+### 1-4. ステータスコード(=店員の答え方)
 
 | 範囲 | 意味 |
 |---|---|
@@ -79,15 +91,30 @@ DELETE /users/123     → ID 123 削除
 | 422 Unprocessable | バリデーションNG |
 | 500 Internal Error | サーバーバグ |
 
+> **覚え方:** 4xx は**お客の責任**、5xx は**店の責任**。
+
 ---
 
-## 2. FastAPI 入門(30分)
+## 2. FastAPI 入門(=モダンなAPIフレームワーク)(30分)
+
+### 2-1. なぜFastAPI?
+
+| 比較 | Flask | FastAPI |
+|---|---|---|
+| 速さ | 普通 | **超速**(Node.js並) |
+| 型ヒント | 任意 | **必須(自動検証)** |
+| ドキュメント | 手動 | **自動生成(Swagger)** |
+| 非同期 | 弱い | **ネイティブ対応** |
+
+→ 2026年現在、**Pythonでバックエンド作るなら FastAPI 一択**。
+
+### 2-2. インストール
 
 ```bash
 pip install fastapi uvicorn[standard]
 ```
 
-### 最小アプリ `main.py`
+### 2-3. 最小アプリ `main.py`
 
 ```python
 from fastapi import FastAPI
@@ -99,46 +126,57 @@ def hello():
     return {"message": "Hello, FastAPI!"}
 
 @app.get("/users/{user_id}")
-def get_user(user_id: int):
+def get_user(user_id: int):  # int で型指定 → 自動的に数字以外を弾く
     return {"id": user_id, "name": "太郎"}
 ```
 
-### 起動
+### 2-4. 起動
 
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --reload  # --reload でコード変更時に自動再起動
 ```
 
 → http://localhost:8000 でアクセス
 → http://localhost:8000/docs で**自動生成APIドキュメント**(Swagger)
 
+> **これがFastAPIの真骨頂:** コード書くだけで**Swagger UIが自動生成**。
+> 「APIドキュメント書いて」とクライアントに言われても、URLを送るだけで終わり。
+
 ---
 
-## 3. Pydantic - 型検証(30分)
+## 3. Pydantic - 型検証(=注文用紙の検品係)(30分)
+
+### 3-1. なぜPydantic?
 
 入力を**自動的に検証**する。
+
+> **問題:** ユーザーが age に "abc" と送ってきたら?
+> → 普通の Python ならエラーで500(サーバー側のバグ扱い)。
+> Pydantic なら**422 Validation Error**を自動返却(=入力ミスとして処理)。
+
+### 3-2. 基本
 
 ```python
 from pydantic import BaseModel, EmailStr, Field
 
 class UserCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=50)
-    email: EmailStr
-    age: int = Field(..., ge=0, le=150)
+    email: EmailStr  # メアド形式じゃないと弾く
+    age: int = Field(..., ge=0, le=150)  # 0以上150以下
 
 @app.post("/users")
 def create_user(user: UserCreate):
     return {"created": user.name}
 ```
 
-### 動作
+### 3-3. 動作
 
 - 正常: `{"name": "太郎", "email": "x@y.z", "age": 25}` → 200
 - 不正: `{"age": 200}` → 422 Validation Error 自動返却
 
 → **入力検証を1行も書かない**で完璧。
 
-### ネスト
+### 3-4. ネスト
 
 ```python
 class Address(BaseModel):
@@ -147,12 +185,12 @@ class Address(BaseModel):
 
 class User(BaseModel):
     name: str
-    address: Address
+    address: Address  # 入れ子可能
 ```
 
 ---
 
-## 4. CRUD API 完全実装(40分)
+## 4. CRUD API 完全実装(=ユーザー管理API)(40分)
 
 ```python
 from fastapi import FastAPI, HTTPException
@@ -165,6 +203,7 @@ engine = create_engine("sqlite:///./test.db")
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
+# DBテーブル定義
 class UserDB(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -173,19 +212,20 @@ class UserDB(Base):
 
 Base.metadata.create_all(engine)
 
-# スキーマ
+# 入力スキーマ
 class UserCreate(BaseModel):
     name: str
     email: str
 
+# 出力スキーマ
 class UserOut(BaseModel):
     id: int
     name: str
     email: str
     class Config:
-        from_attributes = True
+        from_attributes = True  # SQLAlchemyのオブジェクトをそのまま変換
 
-# DI
+# Dependency Injection(DI)
 def get_db():
     db = SessionLocal()
     try: yield db
@@ -230,15 +270,24 @@ def delete_user(user_id: int, db = Depends(get_db)):
 
 → **これだけで本格 API**。
 
+> **`Depends(get_db)` は何?**
+> Dependency Injection(=依存性注入)。
+> 「テスト時はモックDBに差し替える」みたいなことが楽になる。
+
 ---
 
-## 5. 認証(JWT)(40分)
+## 5. 認証(JWT)(=入店パスの仕組み)(40分)
+
+### 5-1. JWTって?
+
+> **JSON Web Token**=「**改ざん不可能な入店パス**」。
+> ログイン成功時に発行 → 以降のAPI呼び出しに添付 → サーバーが本人確認。
 
 ```bash
 pip install python-jose[cryptography] passlib[bcrypt] python-multipart
 ```
 
-### ログイン → トークン発行
+### 5-2. ログイン → トークン発行
 
 ```python
 from fastapi import Depends, HTTPException, status
@@ -247,7 +296,7 @@ from passlib.context import CryptContext
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
 
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = "your-secret-key"  # 本番は環境変数で
 ALGORITHM = "HS256"
 
 pwd_context = CryptContext(schemes=["bcrypt"])
@@ -291,16 +340,24 @@ def me(current_user: UserDB = Depends(get_current_user)):
 
 → **これでログイン制御付き API 完成**。
 
+### よくある間違い
+
+| ミス | 何が起こる | 直し方 |
+|---|---|---|
+| SECRET_KEY をハードコード | 流出で全トークン偽造可 | 環境変数経由(.env) |
+| パスワードを平文保存 | DB漏洩で全パス露出 | bcrypt でハッシュ化 |
+| トークン有効期限なし | 半永久的に乗っ取られる | `exp` 設定(15分〜1時間) |
+
 ---
 
-## 6. ミドルウェア / CORS(15分)
+## 6. ミドルウェア / CORS(=フロントから呼べるように)(15分)
 
 ```python
 from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://my-frontend.com"],
+    allow_origins=["https://my-frontend.com"],  # 信頼するドメイン
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -317,9 +374,13 @@ async def log_requests(request, call_next):
     return response
 ```
 
+> **CORSとは:**
+> ブラウザのセキュリティ機能。「**別ドメインからのAPI呼び出しを禁止**」がデフォルト。
+> CORS設定で「このドメインからは許可する」を明示する。
+
 ---
 
-## 7. 非同期処理(asyncio)(30分)
+## 7. 非同期処理(asyncio)(=並列で速くする)(30分)
 
 ```python
 @app.get("/slow")
@@ -344,9 +405,14 @@ async def aggregate():
 
 → **3つのAPI同時呼び出し**で3倍速。
 
+> **なぜ async?**
+> 通常: 1秒×3 = 3秒
+> async: 並列で1秒
+> ユーザー体感速度が3倍。
+
 ---
 
-## 8. バックグラウンドタスク(15分)
+## 8. バックグラウンドタスク(=裏で処理させる)(15分)
 
 ```python
 from fastapi import BackgroundTasks
@@ -363,7 +429,7 @@ def notify(email: str, bg: BackgroundTasks):
 
 → レスポンス即返す + 裏で処理。
 
-### 本格非同期: Celery + Redis
+### 8-1. 本格非同期: Celery + Redis
 
 長時間処理は Celery に任せる(後日学習)。
 
@@ -384,7 +450,7 @@ async def upload(file: UploadFile = File(...)):
 
 ---
 
-## 10. テスト(20分)
+## 10. テスト(=API 用 pytest)(20分)
 
 ```python
 from fastapi.testclient import TestClient
@@ -401,11 +467,14 @@ def test_create_user():
     assert response.status_code == 201
 ```
 
+> **TestClient のすごさ:**
+> 実際にサーバー起動せず、メモリ内でAPIをテスト。**爆速**。
+
 ---
 
 ## 11. デプロイ(15分)
 
-### Render での FastAPI
+### 11-1. Render での FastAPI
 
 `Dockerfile`:
 ```dockerfile
@@ -447,6 +516,55 @@ FastAPI で「TODOアプリ」のREST APIを作って。
 ```
 
 → **これで「APIエンジニア」として通用**。月額10万〜の保守契約取れる。
+
+---
+
+## 13. 今日学んだ用語まとめ
+
+| 用語 | 一言で |
+|---|---|
+| API | アプリ同士が話す窓口 |
+| REST | API設計の世界標準ルール |
+| HTTP メソッド | GET/POST/PUT/PATCH/DELETE |
+| ステータスコード | 200=成功、404=見つからない、500=サーバーエラー |
+| FastAPI | モダンなPython製APIフレームワーク |
+| Uvicorn | FastAPI を動かすサーバー |
+| Swagger UI | 自動生成APIドキュメント(/docs) |
+| Pydantic | 入力検証ライブラリ(注文用紙の検品係) |
+| BaseModel | Pydantic のスキーマ定義クラス |
+| CRUD | Create / Read / Update / Delete |
+| Depends | Dependency Injection の仕組み |
+| JWT | 改ざん不可能な認証トークン |
+| bcrypt | パスワードハッシュ化アルゴリズム |
+| CORS | クロスオリジン制御(他ドメインAPI呼び出し許可) |
+| async / await | 非同期並列処理 |
+| BackgroundTasks | レスポンス後に裏で実行する処理 |
+| TestClient | FastAPI 専用のテストクライアント |
+
+---
+
+## 💼 この章まで終わったら受けられる案件
+
+### 受けられる案件(具体例)
+- **REST API 新規設計・実装**:単価 30〜100万円(プラットフォーム例:ランサーズ/レバテック/直契約)
+- **既存システムへの API 追加(連携用)**:単価 30〜80万円
+- **マイクロサービス化のための API 切り出し**:単価 50〜150万円(Day 35 の前哨戦)
+
+### クロードへの頼み方(営業文を書かせる例)
+```
+ランサーズの「FastAPI で REST API 構築」案件への提案文を書いて。
+Day 19 までで習得:FastAPI / Pydantic / SQLAlchemy / JWT認証 / CORS / async / OpenAPI 仕様書自動生成
+売り:OpenAPI 仕様書 + 認証 + テスト + Docker 一式で納品
+過去実績:Streamlit と組み合わせた API デモ(GitHub URL)
+納期:2〜3週間
+予算:50〜80万円
+ポイント:納品時に「フロントエンド側がそのまま叩けるドキュメント」まで揃える
+```
+
+### この章だけでは足りないもの(次に学ぶべき)
+- セキュリティ(Day 20)で API の脆弱性対策
+- チーム開発・PR文化(Day 21)
+- マイクロサービス / gRPC(Day 35)
 
 ---
 
