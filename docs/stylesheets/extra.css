@@ -143,6 +143,12 @@
   margin: 1.5em 0;
 }
 
+/* MkDocs が空行を <p> で囲んでもグリッドを崩さない */
+.calendar p {
+  display: contents;
+  margin: 0;
+}
+
 .cal-cell {
   background: white;
   border: 2px solid transparent;

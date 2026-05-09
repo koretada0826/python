@@ -50,7 +50,6 @@ hide:
 <a href="11_ランサーズ/" class="cal-cell tier-basic"><span class="cal-day">11</span><span class="cal-title">ランサーズ</span><span class="cal-income">5-30万</span></a>
 <a href="12_単価UP月額化/" class="cal-cell tier-basic"><span class="cal-day">12</span><span class="cal-title">単価UP・月額</span><span class="cal-income">30-80万</span></a>
 <a href="13_統合_中間チェック/" class="cal-cell tier-basic"><span class="cal-day">13</span><span class="cal-title">中間チェック</span><span class="cal-income">休憩</span></a>
-
 <a href="14_SQL_DB/" class="cal-cell tier-mid"><span class="cal-day">14</span><span class="cal-title">SQL・DB</span><span class="cal-income">+10-30万</span></a>
 <a href="15_Git高度/" class="cal-cell tier-mid"><span class="cal-day">15</span><span class="cal-title">Git高度</span><span class="cal-income">+5-20万</span></a>
 <a href="16_Docker/" class="cal-cell tier-mid"><span class="cal-day">16</span><span class="cal-title">Docker</span><span class="cal-income">+10-30万</span></a>
@@ -60,9 +59,7 @@ hide:
 <a href="20_セキュリティ/" class="cal-cell tier-mid"><span class="cal-day">20</span><span class="cal-title">セキュリティ</span><span class="cal-income">+10-30万</span></a>
 <a href="21_チーム開発/" class="cal-cell tier-mid"><span class="cal-day">21</span><span class="cal-title">チーム開発</span><span class="cal-income">+10-30万</span></a>
 <a href="22_契約_税務_マーケ/" class="cal-cell tier-mid"><span class="cal-day">22</span><span class="cal-title">契約・税務</span><span class="cal-income">+5-30万</span></a>
-
 <a href="23_最終_独立宣言/" class="cal-cell tier-final"><span class="cal-day">23</span><span class="cal-title">独立宣言🎉</span><span class="cal-income">月100万</span></a>
-
 <a href="24_OOP_デザインパターン/" class="cal-cell tier-advanced"><span class="cal-day">24</span><span class="cal-title">OOP・設計</span><span class="cal-income">+10-30万</span></a>
 <a href="25_非同期_並行処理/" class="cal-cell tier-advanced"><span class="cal-day">25</span><span class="cal-title">非同期</span><span class="cal-income">+10-30万</span></a>
 <a href="26_データエンジニアリング/" class="cal-cell tier-advanced"><span class="cal-day">26</span><span class="cal-title">データエンジ⭐</span><span class="cal-income">+30-80万</span></a>
@@ -70,7 +67,6 @@ hide:
 <a href="28_LLM_Agent/" class="cal-cell tier-advanced"><span class="cal-day">28</span><span class="cal-title">LLM Agent⭐⭐</span><span class="cal-income">+50-200万</span></a>
 <a href="29_フルスタック/" class="cal-cell tier-advanced"><span class="cal-day">29</span><span class="cal-title">フルスタック</span><span class="cal-income">+30-100万</span></a>
 <a href="30_本番運用_K8s_IaC/" class="cal-cell tier-advanced"><span class="cal-day">30</span><span class="cal-title">K8s・IaC⭐</span><span class="cal-income">+50-200万</span></a>
-
 <a href="31_アルゴリズム/" class="cal-cell tier-ultimate"><span class="cal-day">31</span><span class="cal-title">アルゴリズム</span><span class="cal-income">+30-80万</span></a>
 <a href="32_CPython内部/" class="cal-cell tier-ultimate"><span class="cal-day">32</span><span class="cal-title">CPython内部</span><span class="cal-income">+20-50万</span></a>
 <a href="33_OSSコード読解/" class="cal-cell tier-ultimate"><span class="cal-day">33</span><span class="cal-title">OSS読解</span><span class="cal-income">+20-50万</span></a>
@@ -90,7 +86,6 @@ hide:
 <a href="47_Browser_Agent/" class="cal-cell tier-ultimate"><span class="cal-day">47</span><span class="cal-title">Browser Agent⭐</span><span class="cal-income">+50-200万</span></a>
 <a href="48_数学/" class="cal-cell tier-ultimate"><span class="cal-day">48</span><span class="cal-title">数学</span><span class="cal-income">+10-30万</span></a>
 <a href="49_英語_海外案件/" class="cal-cell tier-ultimate"><span class="cal-day">49</span><span class="cal-title">英語・海外⭐</span><span class="cal-income">+50-300万</span></a>
-
 <a href="50_最速100万ロードマップ/" class="cal-cell tier-money"><span class="cal-day">50</span><span class="cal-title">最速100万⭐</span><span class="cal-income">必読</span></a>
 <a href="51_案件選別ガイド/" class="cal-cell tier-money"><span class="cal-day">51</span><span class="cal-title">案件選別</span><span class="cal-income">即金</span></a>
 <a href="52_TypeScript/" class="cal-cell tier-money"><span class="cal-day">52</span><span class="cal-title">TypeScript</span><span class="cal-income">+30-80万</span></a>
@@ -102,7 +97,6 @@ hide:
 <a href="58_個人ブランディング/" class="cal-cell tier-money"><span class="cal-day">58</span><span class="cal-title">ブランディング</span><span class="cal-income">+50-200万</span></a>
 <a href="59_メンタル_継続術/" class="cal-cell tier-money"><span class="cal-day">59</span><span class="cal-title">メンタル</span><span class="cal-income">継続</span></a>
 <a href="60_最終_完全独立宣言/" class="cal-cell tier-final"><span class="cal-day">60</span><span class="cal-title">完全独立🎉</span><span class="cal-income">月100-500万</span></a>
-
 </div>
 
 ---
